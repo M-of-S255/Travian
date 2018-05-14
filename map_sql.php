@@ -2,8 +2,11 @@
 
 <?php
 
+
 function update_sql_map($mysqlhost, $mysqldb, $mysqluser, $mysqlpass, $s = 'ts3', $lang = 'fr', $gz = '')
 {
+    $download_dir = "/home/cski/Travail/bot travian/";
+    include "local_vars.php";
     $datemaj = date('d-m-Y H:i:s');
     $connection = mysqli_connect($mysqlhost,$mysqluser, $mysqlpass);
     unset($mysqlpass);
@@ -32,10 +35,12 @@ UNIQUE KEY `id` (`id`))") or die(mysql_error($connection) );
 
         $data=file_get_contents($mapurl);
 
-        $handle=fopen("/home/cski/Travail/bot travian/".$s."-".date("Ymd").".sql","w");
+//        $handle=fopen("/home/cski/Travail/bot travian/".$s."-".date("Ymd").".sql","w");
+
+        $handle=fopen($download_dir.$s."-".date("Ymd").".sql","w");
         fwrite ($handle , $data);
 
-        mysqli_multi_query($connection,$data) or die(mysql_error($connection) );
+        mysqli_multi_query($connection,$data) or die(mysqli_error($connection) );
 
         $L_iCpt=0;
 
@@ -49,7 +54,7 @@ UNIQUE KEY `id` (`id`))") or die(mysql_error($connection) );
     // @mysql_query("DROP TABLE IF EXISTS `$x_world`", $connection) ;
     // @mysql_query("ALTER TABLE `x_world` RENAME TO `$x_world`");
 
-    mysqli_query($connection, "call Update_Data()") or die(mysql_error($connection) );
+    mysqli_query($connection, "call Update_Data()") or die(mysqli_error($connection) );
 
     mysqli_close($connection);
 }
