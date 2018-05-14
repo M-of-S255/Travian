@@ -11,8 +11,8 @@ function update_sql_map($mysqlhost, $mysqldb, $mysqluser, $mysqlpass, $s = 'ts3'
     $connection = mysqli_connect($mysqlhost,$mysqluser, $mysqlpass);
     unset($mysqlpass);
     mysqli_select_db($connection,$mysqldb) or die(mysqli_error($connection));
-    mysqli_query($connection,"SET NAMES UTF8") or die(mysql_error($connection) );
-    mysqli_query($connection,"DROP TABLE IF EXISTS `x_world`") or die(mysql_error($connection) );
+    mysqli_query($connection,"SET NAMES UTF8") or die(mysqli_error($connection) );
+    mysqli_query($connection,"DROP TABLE IF EXISTS `x_world`") or die(mysqli_error($connection) );
     $result=mysqli_query($connection,"CREATE TABLE `x_world` (`id` int(9) unsigned NOT NULL default '0',
 `x` smallint(3) NOT NULL default '0',
 `y` smallint(3) NOT NULL default '0',
@@ -24,7 +24,7 @@ function update_sql_map($mysqlhost, $mysqldb, $mysqluser, $mysqlpass, $s = 'ts3'
 `aid` int(9) unsigned NOT NULL default '0',
 `alliance` varchar(64) NOT NULL default '',
 `population` smallint(5) unsigned NOT NULL default '0',
-UNIQUE KEY `id` (`id`))") or die(mysql_error($connection) );
+UNIQUE KEY `id` (`id`))") or die(mysqli_error($connection) );
 
     $mapurl = "http://$s.travian.$lang/map.sql$gz";// le fichier
 //    $lignes = file($mapurl, FILE_TEXT && FILE_SKIP_EMPTY_LINES); // directement en tableau
